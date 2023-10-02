@@ -3,3 +3,8 @@ body{
     padding: 0 !important;
    
 }
+::marker{
+    color: #3D37F1;
+    font-size: 2rem;
+    
+}
