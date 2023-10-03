@@ -26,7 +26,7 @@ import Pencil from "../../public/assets/handPencil.svg";
 import Note from "../../public/assets/note.svg";
 import Mp4 from "../../public/assets/mp4.svg";
 const imageStyle = {
-  width: "100%",
+  width: '100%'
 };
 
 const containerStyle = {
@@ -92,12 +92,14 @@ export default function Home() {
     <Box>
       <Box
         display="flex"
-        justifyContent="center"
+        justifyContent={{base:'start',md:'center'}}
         alignItems="center"
+        paddingBottom='5%'
         paddingLeft="5%"
         paddingRight="5%"
         style={containerStyle}
-        minH={{ base: "500px", md: "800px" }}
+        minH={{ base: "700px", md: "800px" }}
+        flexDir={{base:'column',md:'row'}}
       >
         <div style={waveContainerStyle}>
           <Wavify
@@ -114,8 +116,8 @@ export default function Home() {
             {/* Contenido que se mostrará sobre las olas */}
           </Wavify>
         </div>
-        <Box w="50%" maxW="700px">
-          <Heading fontSize="3.5rem" color="#fff">
+        <Box w={{base:'100%', md:'50%'}} maxW="700px" marginTop={{base:'20%',md:'0'}} >
+          <Heading fontSize={{base:'2.5rem',md:'3.5rem'}} color="#fff">
             Reflect your ideas in innovative projects!
           </Heading>
           <Text color="#fff" marginBottom="2rem" marginTop="2rem">
@@ -135,7 +137,7 @@ export default function Home() {
             Contact US
           </Button>
         </Box>
-        <Box w="50%" maxW="700px">
+        <Box w="50%" maxW="700px" display={{base:'none', md:'block'}}>
           <Image src={Principal} style={imageStyle} />
         </Box>
       </Box>
@@ -207,16 +209,19 @@ export default function Home() {
       <Box
         display="flex"
         justifyContent="center"
+        flexDir={{base:'column-reverse',md:'row'}}
         alignItems="center"
+        marginTop={{base:'10rem',md:'0'}}
+        marginBottom={{base:'10rem',md:'0'}}
         paddingLeft="5%"
         paddingRight="5%"
         gap="3rem"
         minH={{ base: "500px", md: "800px" }}
       >
-        <Box w="50%" maxW="700px">
+        <Box w={{base:'100%', md:'50%'}} maxW="700px">
           <Image src={Pencil} style={imageStyle} />
         </Box>
-        <Box w="50%" maxW="700px">
+        <Box w={{base:'100%', md:'50%'}} maxW="700px">
           <Image src={Icon4} />
           <Heading fontSize="3.5rem" color="#000" marginTop="1rem">
             We Designed Perfect App for You
@@ -262,6 +267,7 @@ export default function Home() {
         display="flex"
         justifyContent="center"
         alignItems="center"
+        flexDir={{base:'column',md:'row'}}
         marginBottom="10%"
         marginTop="10%"
         paddingLeft="5%"
@@ -269,7 +275,7 @@ export default function Home() {
         gap="3rem"
         minH={{ base: "500px", md: "800px" }}
       >
-        <Box w="50%" maxW="700px">
+        <Box w={{base:'100%',md:'50%'}} maxW="700px">
           <Image src={Icon4} />
           <Heading fontSize="3.5rem" color="#000" marginTop="1rem">
             Our App Features
@@ -312,7 +318,7 @@ export default function Home() {
             </Box>
           </Box>
         </Box>
-        <Box w="50%" maxW="700px">
+        <Box w={{base:'100%',md:'50%'}} maxW="700px">
           <Image src={Phone} style={imageStyle} />
         </Box>
       </Box>
@@ -321,12 +327,14 @@ export default function Home() {
         display="flex"
         justifyContent="center"
         alignItems="center"
+        flexDir={{base:'column-reverse',md:'row'}}
+        paddingTop={{base:'10%',md:'0'}}
         paddingLeft="5%"
         paddingRight="5%"
         style={containerStyle}
         minH={{ base: "500px", md: "500px" }}
       >
-        <Box w="50%" maxW="700px">
+        <Box w={{base:'100%',md:'50%'}} maxW="700px">
           <Image src={Mp4} style={imageStyle} />
         </Box>
         <div style={waveContainerStyle}>
@@ -344,7 +352,7 @@ export default function Home() {
             {/* Contenido que se mostrará sobre las olas */}
           </Wavify>
         </div>
-        <Box w="50%" maxW="700px">
+        <Box w={{base:'100%',md:'50%'}} maxW="700px">
           <Heading fontSize="3.5rem" color="#fff">
             Get Your App for Next Way.
           </Heading>
@@ -370,6 +378,8 @@ export default function Home() {
           display="flex"
           justifyContent="center"
           alignItems="center"
+          flexDir={{base:'column',md:'row'}}
+        paddingTop={{base:'10%',md:'0'}}
           marginBottom="10%"
           marginTop="10%"
           paddingLeft="5%"
@@ -377,7 +387,7 @@ export default function Home() {
           gap="3rem"
           minH={{ base: "500px", md: "800px" }}
         >
-          <Box w="50%" maxW="700px">
+          <Box w={{base:'100%', md:'50%'}} maxW="700px">
             <Image src={Icon8} />
             <Heading fontSize="3.5rem" color="#000" marginTop="1rem">
               Have any Question?
@@ -476,9 +486,9 @@ export default function Home() {
               </Accordion>
             </Box>
           </Box>
-          <Box w="50%" maxW="700px">
-            <Image src={Note} style={imageStyle} />
-          </Box>
+          <Flex justifyContent='center' w={{base:'100%', md:'50%'}} maxW="700px">
+            <Image src={Note} className="svg" />
+          </Flex>
         </Box>
       </FadeUp>
       <FadeUp>
@@ -488,21 +498,23 @@ export default function Home() {
           padding="3rem"
           justifyContent="space-around"
           borderRadius="1rem"
+          height={{base:'700px',md:'200px'}}
+          flexDir={{base:'column',md:'row'}}
         >
           <Flex alignItems="center" flexDir="column">
-            <Heading color="#fff" fontSize="4rem">
+            <Heading color="#fff" fontSize={{base:'6rem',md:'3.5rem'}}>
               {count}+
             </Heading>
             <Text color="#fff">Clients</Text>
           </Flex>
           <Flex alignItems="center" flexDir="column">
-            <Heading color="#fff" fontSize="4rem">
+            <Heading color="#fff" fontSize={{base:'6rem',md:'3.5rem'}}>
               {count2}+
             </Heading>
             <Text color="#fff">Projects</Text>
           </Flex>
           <Flex alignItems="center" flexDir="column">
-            <Heading color="#fff" fontSize="4rem">
+            <Heading color="#fff" fontSize={{base:'6rem',md:'3.5rem'}}>
               {count3}
             </Heading>
             <Text color="#fff">Rating</Text>
@@ -514,6 +526,8 @@ export default function Home() {
         alignItems="center"
         paddingBottom="5%"
         paddingTop="5%"
+        paddingLeft='5%'
+        paddingRight='5%'
       >
         <Flex
           flexDir="column"
@@ -523,7 +537,7 @@ export default function Home() {
           gap="1rem"
         >
           <Heading>Still Not Lucky?</Heading>
-          <Text>
+          <Text align='center'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
             earum nostrum quis ex, hic quia sequi distinctio quam, adipisci
             voluptatibus expedita fugit illum iure facere nulla veniam similique

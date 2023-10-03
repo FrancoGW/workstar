@@ -8,3 +8,14 @@ body{
     font-size: 2rem;
     
 }
+
+.svg{
+    width: 100%;
+}
+
+@media screen and (max-width:48em){
+    .svg{
+    width: 70%;
+    
+    }
+}
