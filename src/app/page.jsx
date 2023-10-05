@@ -134,7 +134,7 @@ export default function Home() {
             borderRadius="99px"
             fontSize="1.2rem"
           >
-            Contact US
+            <a href="/Contact">Contact US</a>
           </Button>
         </Box>
         <Box w="50%" maxW="700px" display={{base:'none', md:'block'}}>
