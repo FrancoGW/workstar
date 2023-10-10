@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import { Box, Heading, Text, Button, Flex, Img } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Input, Box, Heading, Text, Button, Flex, Img, FormControl, Container, FormErrorMessage, Textarea, useToast } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import FadeUp from "./components/fadeUp";
 import {
@@ -25,9 +25,19 @@ import Phone from "../../public/assets/phone.svg";
 import Pencil from "../../public/assets/handPencil.svg";
 import Note from "../../public/assets/note.svg";
 import Mp4 from "../../public/assets/mp4.svg";
+
+import "./global.css";
+
+import { useState } from "react";
+import { sendContactForm } from "../../lib/api"; 
+
 const imageStyle = {
   width: '100%'
 };
+
+const initValues = { name: "", email: "", subject: "", message: "" };
+
+const initState = { isLoading: false, error: "", values: initValues };
 
 const containerStyle = {
   backgroundColor: "#A5A2F6",
@@ -43,6 +53,49 @@ const waveContainerStyle = {
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
   const { ref, inView } = useInView();
+
+  const toast = useToast();
+  const [state, setState] = useState(initState);
+  const [touched, setTouched] = useState({});
+
+  const { values, isLoading, error } = state;
+
+  const onBlur = ({ target }) =>
+    setTouched((prev) => ({ ...prev, [target.name]: true }));
+
+  const handleChange = ({ target }) =>
+    setState((prev) => ({
+      ...prev,
+      values: {
+        ...prev.values,
+        [target.name]: target.value,
+      },
+    }));
+
+  const onSubmit = async () => {
+    setState((prev) => ({
+      ...prev,
+      isLoading: true,
+    }));
+    try {
+      await sendContactForm(values);
+      setTouched({});
+      setState(initState);
+      toast({
+        title: "Message sent.",
+        status: "success",
+        duration: 2000,
+        position: "top",
+      });
+    } catch (error) {
+      setState((prev) => ({
+        ...prev,
+        isLoading: false,
+        error: error.message,
+      }));
+    }
+  };
+
 
   useEffect(() => {
     if (inView) {
@@ -555,7 +608,84 @@ export default function Home() {
           </Button>
         </Flex>
       </Flex>
-      </FadeUp>
+      <Flex>
+        <Container>
+          <Heading align="center">Contact</Heading>
+           <FormControl isRequired isInvalid={touched.name && !values.name} mb={5}>
+            <Input
+              placeholder="Name" 
+              type="text"
+              name="name"
+              errorBorderColor="red.300"
+              value={values.name}
+              onChange={handleChange}
+              onBlur={onBlur}
+            />
+            <FormErrorMessage>Required</FormErrorMessage>
+           </FormControl>
+   
+
+          <FormControl isRequired isInvalid={touched.email && !values.email} mb={5}>
+            <Input
+              placeholder="Email" 
+              type="email"
+              name="email"
+              errorBorderColor="red.300"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={onBlur}
+            />
+            <FormErrorMessage>Required</FormErrorMessage>
+          </FormControl>
+
+
+          <FormControl mb={5} isRequired isInvalid={touched.subject && !values.subject}>
+            <Input
+              placeholder="Subject" 
+              type="text"
+              name="subject"
+              errorBorderColor="red.300"
+              value={values.subject}
+              onChange={handleChange}
+              onBlur={onBlur}
+            />
+            <FormErrorMessage>Required</FormErrorMessage>
+          </FormControl>
+
+
+          <FormControl  isRequired isInvalid={touched.message && !values.message} mb={5}>
+            <Textarea
+              placeholder="Message" 
+              type="text"
+              name="message"
+              rows={4}
+              errorBorderColor="red.300"
+              value={values.message}
+              onChange={handleChange}
+              onBlur={onBlur}
+            />
+          </FormControl>
+
+          <Button
+              mb={5}
+              backgroundColor="#3D37F1"
+              border="none"
+              color="#fff"
+              padding="2rem 2rem 2rem"
+              borderRadius="99px"
+              fontSize="1.2rem"
+              variant="outline"
+              isLoading={isLoading}
+              disabled={
+                !values.name || !values.email || !values.subject || !values.message
+              }
+              onClick={onSubmit}>
+                Contact
+          </Button>
+        </Container>
+      </Flex>
+      </FadeUp>   
     </Box>
+    
   );
 }
