@@ -641,7 +641,7 @@ export default function Home() {
 
           <FormControl mb={5} isRequired isInvalid={touched.subject && !values.subject}>
             <Input
-              placeholder="Message" 
+              placeholder="Subject" 
               type="text"
               name="subject"
               errorBorderColor="red.300"
